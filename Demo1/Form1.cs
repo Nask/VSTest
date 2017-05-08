@@ -43,12 +43,34 @@ namespace Demo1
         {
             browser.Navigate().GoToUrl("https://www.yandex.ru/");
             IWebElement element;        //Обявляем переменную "element"
+
+            // Находит элемент по id ссылки
             //element = browser.FindElement(By.Id("text"));       //находит элемент с id="text"
             //element.SendKeys("текст");      // и вводит туда - "текст"
 
-            
-            element = browser.FindElement( By.ClassName("promo_9may2017__entry") );
+            // Поиск по классу ссылки
+            //element = browser.FindElement( By.ClassName("promo_9may2017__entry") ); 
+            //element.Click(); // Функция клика по ссылке
+
+            // Поиск по тексту ссылки
+            //element = browser.FindElement(By.LinkText("Картинки"));     
+            //element.Click();
+
+            // Поиск по частичному тексту ссылки
+            element = browser.FindElement(By.PartialLinkText("Перевод"));
             element.Click();
+        }
+
+        // Работа с CSS селекторами - поиск элементов и вывод из в текстовое окно программы
+        private void button5_Click(object sender, EventArgs e) // 3. Перебор элементов
+        {
+            browser.Navigate().GoToUrl("https://www.yandex.ru/");
+            List<IWebElement> news = browser.FindElements(By.CssSelector("div.weather")).ToList();
+
+            for (int i = 0; i < news.Count; i++)
+            {
+                textBox1.AppendText( news[i].Text + "\n" );
+            }
         }
     }
 }
